@@ -1,0 +1,101 @@
+/* Fontshare Imports for General Sans and Satoshi */
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@600,700&f[]=satoshi@400,500,700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  /* --- Colors: Primary Palette --- */
+  --color-ink: #F1F5F9;
+  /* Primary text — light on dark */
+  --color-slate: #94A3B8;
+  /* Secondary text */
+  --color-muted: #64748B;
+  /* Placeholder, disabled, timestamps */
+  --color-surface: #1E293B;
+  /* Card backgrounds, modals, inputs */
+  --color-canvas: #0F172A;
+  /* Page background */
+  --color-border: #334155;
+  /* Card borders, dividers */
+  --color-border-subtle: #1E293B;
+  /* Inner dividers, row separators */
+  --color-surface-raised: #283548;
+  /* Hover states, elevated cards, dropdowns 
+
+  /* --- Colors: Accent Palette --- */
+  --color-brand-primary: #6366F1;
+  --color-brand-hover: #818CF8;
+  /* CHANGED — lighter on hover, not darker */
+  --color-brand-subtle: rgba(99, 102, 241, 0.12);
+  /* CHANGED — transparent tint instead of solid */
+  --color-brand-dark: #A5B4FC;
+
+
+  /* --- Colors: Semantic Palette --- */
+  --color-success: #4ADE80;
+  /* Brighter green for dark bg */
+  --color-success-bg: rgba(74, 222, 128, 0.1);
+  --color-warning: #FBBF24;
+  /* Brighter amber */
+  --color-warning-bg: rgba(251, 191, 36, 0.1);
+  --color-danger: #F87171;
+  /* Brighter red */
+  --color-danger-bg: rgba(248, 113, 113, 0.1);
+  --color-info: #60A5FA;
+  /* Brighter blue */
+  --color-info-bg: rgba(96, 165, 250, 0.1);
+  /* --- Typography --- */
+  --font-sans: 'Satoshi', system-ui, -apple-system, sans-serif;
+  --font-heading: 'General Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), 'Cascadia Code', 'Fira Code', monospace;
+
+  /* --- Shadows --- */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04);
+
+  /* --- Border Radius --- */
+  --radius-sm: 6px;
+  /* Badges/Tags */
+  --radius-md: 8px;
+  /* Buttons/Inputs/Tooltips */
+  --radius-lg: 12px;
+  /* Cards */
+  --radius-xl: 16px;
+  /* Modals */
+}
+
+@layer base {
+  body {
+    @apply bg-canvas text-ink font-sans antialiased selection:bg-brand-subtle selection:text-brand-primary;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading text-ink;
+  }
+
+  /* Type Scale Implementations */
+  h1 {
+    @apply text-[28px] font-bold leading-[1.2] tracking-[-0.02em];
+  }
+
+  h2 {
+    @apply text-[20px] font-semibold leading-[1.3] tracking-[-0.01em];
+  }
+
+  h3 {
+    @apply text-[16px] font-semibold leading-[1.4];
+  }
+
+  p {
+    @apply text-[14px] leading-[1.5];
+  }
+
+  small {
+    @apply text-[12px] font-medium leading-[1.4] tracking-[0.01em];
+  }
+}
