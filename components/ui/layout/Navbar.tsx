@@ -66,11 +66,15 @@ export function Navbar() {
                     >
                         Sign in
                     </Link>
-                    <Button variant="primary">
-                        Try Free
-                    </Button>
+
+                    <Link href="/signup">
+                        <Button variant="primary">
+                            Try Free
+                        </Button>
+                    </Link>
+
                 </div>
             </div>
-        </motion.header>
+        </motion.header >
     );
 }

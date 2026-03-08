@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { FileText, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, FileText } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const ROTATING_WORDS = ["Accountants", "Bookkeepers", "Firms", "Teams"];
 
@@ -22,9 +22,9 @@ export function Hero() {
   return (
     <section className="relative min-h-[calc(100vh-64px)] flex items-center py-20 lg:py-0 px-8 overflow-hidden">
       <div className="mx-auto w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        
+
         {/* Left Column: Copy & CTAs */}
-        <motion.div 
+        <motion.div
           className="flex flex-col items-start text-left"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -58,9 +58,13 @@ export function Hero() {
 
           {/* CTA Group */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
-            <Button variant="primary" className="h-12 px-6 text-base w-full sm:w-auto">
-              Start Free — No Card Required
-            </Button>
+
+            <Link href="/signup">
+              <Button variant="primary" className="h-12 px-6 text-base w-full sm:w-auto">
+                Start Free — No Card Required
+              </Button>
+            </Link>
+
             <Link href="#demo" className="w-full sm:w-auto">
               <Button variant="ghost" className="h-12 px-6 text-base w-full sm:w-auto gap-2">
                 See it work <ArrowRight size={16} />
@@ -81,7 +85,7 @@ export function Hero() {
 
           {/* The "Screenshot" */}
           <div className="relative z-10 aspect-[16/10] w-full rounded-lg border border-border bg-surface shadow-elevated overflow-hidden flex flex-col">
-            
+
             {/* Fake Browser Header */}
             <div className="h-10 w-full border-b border-border bg-canvas flex items-center px-4 gap-2 shrink-0">
               <div className="flex gap-1.5">
@@ -93,10 +97,10 @@ export function Hero() {
                 <span className="text-[10px] text-muted font-mono">app.invoiceiq.com/inv_892</span>
               </div>
             </div>
-            
+
             {/* Fake App Body (Invoice Detail View) */}
             <div className="flex-1 flex bg-canvas/30 p-4 gap-4 overflow-hidden">
-              
+
               {/* Left Pane: PDF Viewer Placeholder */}
               <div className="w-1/2 h-full bg-surface border border-border rounded-md flex flex-col items-center justify-center text-slate shadow-sm">
                 <FileText size={32} className="text-border mb-2" strokeWidth={1.5} />
