@@ -1,12 +1,55 @@
 "use client";
 
+import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
 import { Building2, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SignUpPage() {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
+    const supabase = createClient();
+
+    const handleSignUp = async (e: React.SubmitEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setError(null);
+
+        const { error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+                data: {
+                    full_name: name,
+                },
+            },
+        });
+
+        if (error) {
+            setError(error.message);
+            setIsLoading(false);
+        } else {
+            router.push("/dashboard");
+        }
+    };
+
+    // NEW: Handle Google OAuth
+    const handleGoogleLogin = async () => {
+        await supabase.auth.signInWithOAuth({
+            provider: "google",
+            options: {
+                redirectTo: `${window.location.origin}/auth/callback`,
+            },
+        });
+    };
+
 
     // Simple password strength calculator (0 to 4)
     const calculateStrength = (pass: string) => {
@@ -64,7 +107,7 @@ export default function SignUpPage() {
                         transition={{ duration: 0.4, delay: 0.1 }}
                     >
                         {/* Google OAuth Button */}
-                        <button className="w-full flex items-center justify-center gap-3 bg-ink text-surface py-2.5 rounded-md font-medium hover:bg-slate transition-colors mb-6 shadow-sm">
+                        <button className="w-full flex items-center justify-center gap-3 bg-ink text-surface py-2.5 rounded-md font-medium hover:bg-slate transition-colors mb-6 shadow-sm" onClick={handleGoogleLogin}>
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
                                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
                                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
@@ -82,8 +125,14 @@ export default function SignUpPage() {
                         </div>
 
                         {/* Form */}
-                        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                        <form className="space-y-4" onSubmit={handleSignUp}>
+                            {error && (
+                                <div className="bg-danger-bg text-danger text-sm p-3 rounded-md border border-danger/20">
+                                    {error}
+                                </div>
+                            )}
                             <div className="space-y-1.5">
+
                                 <label className="text-sm font-medium text-ink block">Full Name</label>
                                 <input
                                     type="text"
@@ -140,9 +189,10 @@ export default function SignUpPage() {
                             {/* Submit Button */}
                             <button
                                 type="submit"
-                                className="w-full bg-brand-primary text-white py-2.5 rounded-md font-medium hover:bg-brand-hover transition-colors shadow-md mt-2"
+                                disabled={isLoading}
+                                className="w-full bg-brand-primary text-white py-2.5 rounded-md font-medium hover:bg-brand-hover transition-colors shadow-md mt-2 disabled:opacity-70 disabled:cursor-not-allowed"
                             >
-                                Create Account
+                                {isLoading ? "Creating Account..." : "Create Account"}
                             </button>
                         </form>
 
@@ -225,6 +275,6 @@ export default function SignUpPage() {
 
                 </div>
             </div>
-        </main>
+        </main >
     );
 }
