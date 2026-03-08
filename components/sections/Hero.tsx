@@ -34,16 +34,16 @@ export function Hero() {
           <h1 className="font-heading text-[48px] font-bold text-ink tracking-[-0.03em] leading-[1.1] max-w-[600px] mb-6">
             Intelligent invoice processing <br className="hidden xl:block" />
             for{" "}
-            {/* Fixed height and alignment to prevent layout jumping */}
-            <span className="inline-block relative text-brand-primary w-[280px] h-[1.25em] text-left align-bottom">
+            {/* Fixed width prevents layout shift; overflow-hidden clips the slide animation */}
+            <span className="inline-block relative text-brand-primary w-[340px] h-[1.1em] align-middle overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={wordIndex}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: "100%" }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="absolute left-0 top-0"
+                  exit={{ opacity: 0, y: "-100%" }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  className="absolute inset-0 flex items-center"
                 >
                   {ROTATING_WORDS[wordIndex]}.
                 </motion.span>
