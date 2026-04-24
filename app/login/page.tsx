@@ -17,8 +17,7 @@ export default function LoginPage() {
 
 
 
-    const handleEmailLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleEmailLogin = async () => {
         setIsLoading(true);
         setError(null);
 
@@ -98,8 +97,10 @@ export default function LoginPage() {
                         </div>
 
                         {/* Form */}
-                        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                        <form className="space-y-4" action={handleEmailLogin}>
                             <div className="space-y-1.5">
+
+
                                 <label className="text-sm font-medium text-ink block">Work Email</label>
                                 <input
                                     type="email"
